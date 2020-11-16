@@ -5,11 +5,12 @@ from  django.utils import timezone
 class Room(models.Model):
 
     name = models.CharField(max_length=50)
-    priec = models.IntegerField()
+    price = models.IntegerField()
     description = models.TextField(max_length=10000)
     location = models.CharField(max_length=100)
     image = models.ImageField(upload_to='property/')
-    
+    category = models.ForeignKey('Category', related_name='room_category',on_delete=models.CASCADE, blank=True,null=True)
+     
     def __str__(self):
     	return self.name
 
@@ -18,6 +19,7 @@ class RoomImage(models.Model):
 	
 	room = models.ForeignKey(Room, related_name='room_image',on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='room_image/')
+	  
 	def __str__(self):
 		return str(self.room)
 
